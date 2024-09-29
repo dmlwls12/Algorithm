@@ -1,15 +1,18 @@
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        Scanner year = new Scanner(System.in);
-        int buddhistEra = year.nextInt();      
+       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+       String input = br.readLine();
 
-        System.out.println(buddhistEra - 543);
+        int bugghistEra = Integer.parseInt(input);
 
+        System.out.println(bugghistEra - 543);
 
     }
 }
