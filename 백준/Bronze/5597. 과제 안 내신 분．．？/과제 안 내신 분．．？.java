@@ -1,0 +1,44 @@
+
+import java.io.*;
+
+
+public class Main {
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        /**
+         * X대학 M교수님은 프로그래밍 수업을 맡고 있다. 교실엔 학생이 30명이 있는데, 학생 명부엔 각 학생별로 1번부터 30번까지 출석번호가 붙어 있다.
+         * --> 방 크기 30인 배열
+         *
+         * 교수님이 내준 특별과제를 28명이 제출했는데,
+         * --> 반복 횟수
+         *
+         * 그 중에서 제출 안 한 학생 2명의 출석번호를 구하는 프로그램을 작성하시오.
+         * --> 임의로 두 명 뽑기
+         */
+        int[] arr = new int[30];
+
+        // 제출한 28명의 출석부
+        for(int i = 0; i < 28; i++) {
+            int num = Integer.parseInt(br.readLine());
+            arr[num - 1] = num;       // 제출한 번호의 인덱스를 1로 설정
+        }
+
+        // 제출 안한 두 명 찾기
+        for(int i = 0; i < arr.length; i++) {
+            if(arr[i] == 0) {
+
+                bw.write(i + 1 + "\n");
+            }
+        }
+
+        bw.newLine();
+        bw.flush();
+        br.close();
+        bw.close();
+    }
+
+}
