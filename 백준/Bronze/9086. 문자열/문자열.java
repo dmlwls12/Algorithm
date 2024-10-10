@@ -1,6 +1,5 @@
 
 import java.io.*;
-import java.util.StringTokenizer;
 
 
 public class Main {
@@ -12,16 +11,12 @@ public class Main {
 
         // 입력
         int t = Integer.parseInt(br.readLine());
-        String[] arr = new String[t];
 
         for (int i = 0; i < t; i++) {
-            arr[i]  = br.readLine();
 
-        }
+            String s = br.readLine();
 
-        for(int i = 0; i < t; i++) {
-            String s = arr[i];
-            bw.write(s.charAt(0) +  "" + s.charAt(s.length() - 1) + "\n");
+            bw.write(s.charAt(0) + "" + s.charAt(s.length() - 1) + "\n");
         }
 
 
