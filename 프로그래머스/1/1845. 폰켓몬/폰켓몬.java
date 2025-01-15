@@ -1,21 +1,21 @@
-import java.util.*;
+import java.util.HashSet;
 
 class Solution {
     public int solution(int[] nums) {
         
-        int answer = 0;
+        int answer = nums.length / 2;
         
-        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-
+        HashSet<Integer> numSet = new HashSet<>();
+        
         for(int num : nums) {
-            map.put(num, map.getOrDefault(num, 0) + 1);
+            numSet.add(num);
         }
         
-        int n = nums.length / 2;
-        int m = map.size();
+        if(numSet.size() > answer) {
+            return answer;
+        } else {
+            return numSet.size();
+        }
         
-        answer = n > m ? m : n;
-        
-        return answer;
     }
 }
