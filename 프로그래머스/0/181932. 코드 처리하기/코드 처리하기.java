@@ -1,20 +1,22 @@
 class Solution {
     public String solution(String code) {
-        StringBuilder b = new StringBuilder();
-        boolean mode = true;
+        String ret = "";
+        int mode = 0;
         
-        for(int i = 0; i < code.length(); i++){
-            char c = code.charAt(i);
-            
-            if(c == '1'){
-                mode = !mode;
-            } else {
-                if(mode == (i % 2 == 0)){
-                    b.append(c);
-                }
+        for(int idx = 0; idx < code.length(); idx++){
+            if(code.charAt(idx) == '1'){
+                mode = 1 - mode;
+            } else if(mode == 0 && idx % 2 == 0){
+                ret += code.charAt(idx);
+            } else if(mode == 1 && idx % 2 == 1){
+                ret += code.charAt(idx);
             }
         }
-        String answer = b.length() == 0 ? "EMPTY" : b.toString();
-        return answer;
+        
+        if(ret.equals("")){
+            return "EMPTY";
+        } else {
+            return ret;
+        }
     }
 }
