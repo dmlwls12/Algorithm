@@ -9,7 +9,7 @@ class Solution {
             int e = queries[i][1];
             
             for(int j = s; j <= e; j++){
-                arr[j] += 1;
+                arr[j] ++;
             }
         }
         return arr;
