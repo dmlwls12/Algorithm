@@ -1,59 +1,55 @@
 import java.util.*;
-import java.time.*;
-import java.time.format.*;
 
 class Solution {
     public int[] solution(String today, String[] terms, String[] privacies) {
-
+        
+        Map<String, Integer> termsMap = new HashMap<>();
         List<Integer> list = new ArrayList<>();
-        Map<String, Integer> t_map = new HashMap<>();
-        Map<String, String> p_map = new HashMap<>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-        LocalDate todayDate = LocalDate.parse(today, formatter);
         
-        int t_year = todayDate.getYear();
-        int t_mon = todayDate.getMonthValue();
-        int t_day = todayDate.getDayOfMonth();
-        
-        // terms의 map
-        for(int i = 0; i < terms.length; i++){
-            String[] parts = terms[i].split(" ");
-            t_map.put(parts[0], Integer.parseInt(parts[1]));
+        for(String s : terms){      // termsMap 완성
+            String[] part = s.split(" ");
+            int label = Integer.parseInt(part[1]);
+            termsMap.put(part[0], label);     
         }
         
-        // privacies의 map
+        String[] part = today.split("\\.");       // today 날짜 파싱
+        int t_year = Integer.parseInt(part[0]);
+        int t_mon = Integer.parseInt(part[1]);
+        int t_day = Integer.parseInt(part[2]);
+        
         for(int i = 0; i < privacies.length; i++){
-            String[] parts = privacies[i].split(" ");
-            String dateStr = parts[0];
-            String type = parts[1];
+            String[] parts = privacies[i].split(" ");       // privacies 파싱
+            String label = parts[1];
+            String date = parts[0];
             
-            String[] dateParts = dateStr.split("\\.");
-            int year = Integer.parseInt(dateParts[0]);
-            int month = Integer.parseInt(dateParts[1]);
-            int day = Integer.parseInt(dateParts[2]);
+            String[] datePart = date.split("\\.");       // 날짜 파싱
+            int p_year = Integer.parseInt(datePart[0]);
+            int p_mon = Integer.parseInt(datePart[1]);
+            int p_day = Integer.parseInt(datePart[2]);
             
-            month += t_map.get(type);
+            p_mon += termsMap.get(label);     // terms 더하기
             
-            while(month > 12){
-                year++;
-                month -= 12;
+            while(p_mon > 12){
+                p_mon -= 12;
+                p_year++;
             }
             
-            day -= 1;
-            if(day < 1){
-                month--;
-                day = 28;
-                if(month < 1){
-                    year--;
-                    month = 12;
+            p_day -= 1;       // 기한은 전날까지이니 하루 빼기
+            
+            if(p_day < 1){
+                p_day = 28;
+                p_mon --;
+                
+                if(p_mon < 1){
+                    p_mon = 12;
+                    p_year--;
                 }
             }
             
-            if(year < t_year || (year == t_year && month < t_mon) || (year == t_year && month == t_mon && day < t_day)){
-                list.add(i + 1);
-            }
+            if(t_year > p_year || t_mon > p_mon && t_year == p_year || t_day > p_day && t_mon == p_mon && t_year == p_year) list.add(i + 1);
         }
         
         return list.stream().mapToInt(Integer::intValue).toArray();
+
     }
 }
